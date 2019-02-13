@@ -1,12 +1,16 @@
 {
-  "name": "@advancedalgos/events-client",
-  "version": "0.0.4",
-  "description": "Advanced Algos Event client-side web app",
+  "name": "@superalgos/modulename-client",
+  "version": "0.0.1",
+  "description": "Superalgos modulename client-side web app",
   "author": "",
   "license": "",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Superalgos/ModulenameClientModule.git"
   },
   "standard": {
     "parser": "babel-eslint"
