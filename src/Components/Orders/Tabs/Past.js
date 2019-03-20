@@ -2,33 +2,25 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
-import styles from './styles';
+import styles from '../styles';
 
-import Event from './Event';
-
-class Future extends React.Component {
+class Past extends React.Component {
   render() {
     const { classes } = this.props;
-    const { FutureEvents } = this.props;
-
-    const futureEvents = FutureEvents.map((event, index) => (
-      <Event key={index} event={event} />
-    ));
     return (
       <div className='container'>
         <Typography
           className={classes.title}
-          variant='h4'
+          variant='display1'
           align='center'
           color='textPrimary'
           gutterBottom
         >
-        Future events
+          A list of passed orders
         </Typography>
-        {futureEvents}
       </div>
     );
   }
 }
 
-export default withStyles(styles)(Future);
+export default withStyles(styles)(Past);
