@@ -5,9 +5,9 @@ import { Route, Switch } from 'react-router-dom';
 import Search from './Components/Search';
 
 const App = () => (
-  <div className='eventsModule'>
+  <div className='cockpitModule'>
     <Switch>
-      <Route exact path='/events/' component={Search} />
+      <Route exact path='/cockpit/' component={Search} />
     </Switch>
   </div>
 );
