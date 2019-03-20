@@ -9,8 +9,10 @@ import {
   Tab,
 } from '@material-ui/core';
 import {
-  GetApp as OngoingIcon,
-  History as PastIcon,
+  NotificationImportantRounded as OngoingIcon,
+  HistoryRounded as PastIcon,
+  ArchiveRounded as ArchivedIcon,
+  ExposurePlus1Rounded as AddOrder,
 } from '@material-ui/icons';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -26,38 +28,57 @@ import {
 
 const GET_SIGNALS = gql`
   {
-    signaled: operations_Clones{
+    oldClones: operations_Clones {
       id
       processName
       beginDatetime
       endDatetime
       teamName
       botName
-      signals(state: SIGNALED){
+      signals {
+        id
+        state
         context
         orderData
-        changeLogs{
+        changeLogs {
           reason
-          fromState
-          toState
+          state
+          context
+          orderData
           date
         }
       }
     }
-    all: operations_Clones{
+    activeClones: operations_HistoryClones {
       id
       processName
       beginDatetime
       endDatetime
       teamName
       botName
-      signals(state: SIGNALED){
+      signaledSignals: signals(state: SIGNALED) {
+        id
+        state
         context
         orderData
-        changeLogs{
+        changeLogs {
           reason
-          fromState
-          toState
+          state
+          context
+          orderData
+          date
+        }
+      }
+      signals {
+        id
+        state
+        context
+        orderData
+        changeLogs {
+          reason
+          state
+          context
+          orderData
           date
         }
       }
@@ -108,13 +129,23 @@ class Search extends React.Component {
             >
               <Tab
                 className={classes.tabTitle}
-                label='Ongoing'
+                label='Action needed'
                 icon={<OngoingIcon />}
               />
               <Tab
                 className={classes.tabTitle}
                 label='Past'
                 icon={<PastIcon />}
+              />
+              <Tab
+                className={classes.tabTitle}
+                label='Shuted down bots'
+                icon={<ArchivedIcon />}
+              />
+              <Tab
+                className={classes.tabTitle}
+                label='Order on your own'
+                icon={<AddOrder />}
               />
             </Tabs>
           </AppBar>
@@ -127,6 +158,8 @@ class Search extends React.Component {
                 <React.Fragment>
                   {value === 0 && <TabContainer><Ongoing data={data.signaled} /></TabContainer>}
                   {value === 1 && <TabContainer><Past data={data.all} /></TabContainer>}
+                  {value === 2 && <TabContainer><Past data={data.all} /></TabContainer>}
+                  {value === 3 && <TabContainer><Past data={data.all} /></TabContainer>}
                 </React.Fragment>
               );
             }}

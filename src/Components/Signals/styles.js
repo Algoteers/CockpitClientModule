@@ -7,7 +7,7 @@ const styles = theme => ({
     margin: 0,
   },
   tabTitle: {
-    width: '50%',
+    width: '25%',
     maxWidth: 'none',
   },
   card: {
