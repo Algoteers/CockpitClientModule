@@ -1,4 +1,6 @@
 import React from 'react';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import {
   Typography,
@@ -20,6 +22,48 @@ import {
   Ongoing,
   Past,
 } from './Tabs';
+
+
+const GET_SIGNALS = gql`
+  {
+    signaled: operations_Clones{
+      id
+      processName
+      beginDatetime
+      endDatetime
+      teamName
+      botName
+      signals(state: SIGNALED){
+        context
+        orderData
+        changeLogs{
+          reason
+          fromState
+          toState
+          date
+        }
+      }
+    }
+    all: operations_Clones{
+      id
+      processName
+      beginDatetime
+      endDatetime
+      teamName
+      botName
+      signals(state: SIGNALED){
+        context
+        orderData
+        changeLogs{
+          reason
+          fromState
+          toState
+          date
+        }
+      }
+    }
+  }
+`;
 
 function TabContainer(props) {
   return (
@@ -74,36 +118,19 @@ class Search extends React.Component {
               />
             </Tabs>
           </AppBar>
-          {value === 0 && <TabContainer><Ongoing /></TabContainer>}
-          {value === 1 && <TabContainer><Past /></TabContainer>}
-          {/* <Query
-            query={hostedEventsCalls.EVENTS_EVENTSBYHOST}
-            variables={{ maxStartDate: time.now, minEndDate: time.now }}
-          >
+          <Query query={GET_SIGNALS}>
             {({ loading, error, data }) => {
               if (loading) return 'Loading...';
               if (error) return `Error! ${error.message}`;
+
               return (
                 <React.Fragment>
-                  {value === 0 && <TabContainer><Ongoing Events={data.events_Events} /></TabContainer>}
+                  {value === 0 && <TabContainer><Ongoing data={data.signaled} /></TabContainer>}
+                  {value === 1 && <TabContainer><Past data={data.all} /></TabContainer>}
                 </React.Fragment>
               );
             }}
           </Query>
-          <Query
-            query={hostedEventsCalls.EVENTS_EVENTSBYHOST}
-            variables={{ maxEndDate: time.now }}
-          >
-            {({ loading, error, data }) => {
-              if (loading) return 'Loading...';
-              if (error) return `Error! ${error.message}`;
-              return (
-                <React.Fragment>
-                  {value === 2 && <TabContainer><History Events={data.events_Events} /></TabContainer>}
-                </React.Fragment>
-              );
-            }}
-          </Query> */}
         </div>
       </React.Fragment>
     );
