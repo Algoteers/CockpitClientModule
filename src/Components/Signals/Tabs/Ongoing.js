@@ -1,12 +1,31 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import {
+  Typography, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid,
+} from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
 
 import { withStyles } from '@material-ui/core/styles';
+import Answer from '../Signal/Answer';
 import styles from '../styles';
 
 class Ongoing extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: null,
+    };
+  }
+
+
+  handleExpand = panel => (event, expanded) => {
+    this.setState({
+      expanded: expanded ? panel : false,
+    });
+  };
+
   render() {
-    const { classes } = this.props;
+    const { data, classes } = this.props;
+    const { expanded } = this.state;
     return (
       <div className='container'>
         <Typography
@@ -18,6 +37,23 @@ class Ongoing extends React.Component {
         >
           A list of ongoing signals
         </Typography>
+
+        { data.map((clone, i) => (
+          <ExpansionPanel key={`clone-${i}`} expanded={expanded === i} onChange={this.handleExpand(i)}>
+            <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+              <Typography className={classes.heading}>{ `${clone.teamName} - ${clone.botName}` }</Typography>
+              <Typography className={classes.secondaryHeading}> { ` / ${clone.processName} - ${clone.id}` }
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Grid container>
+                { clone.signaledSignals.map((signal, j) => (
+                  <Answer key={`signal-${j}`} signal={signal} />
+                ))}
+              </Grid>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        ))}
       </div>
     );
   }
