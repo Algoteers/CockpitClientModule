@@ -16,14 +16,14 @@ class AnswerToSignal extends React.Component {
   render() {
     const { signal } = this.props;
     return (
-      <React.Fragment>
-        <Grid item md={6} xs={12} >
-          <Show signal={signal} />
-        </ Grid>
+      <Grid container>
         <Grid item md={6} xs={12} >
           <Order signal={signal} />
-        </ Grid>
-      </React.Fragment>
+        </Grid>
+        <Grid item md={6} xs={12} >
+          <Show signal={signal} />
+        </Grid>
+      </Grid>
     );
   }
 }

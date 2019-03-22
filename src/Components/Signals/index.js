@@ -12,7 +12,7 @@ import {
   NotificationImportantRounded as OngoingIcon,
   HistoryRounded as PastIcon,
   ArchiveRounded as ArchivedIcon,
-  ExposurePlus1Rounded as AddOrder,
+  ExposurePlus1Rounded as AddOrderIcon,
 } from '@material-ui/icons';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -23,6 +23,8 @@ import BannerTopBar from '../BannerTopBar';
 import {
   Ongoing,
   Past,
+  AddOrder,
+  Archived,
 } from './Tabs';
 
 
@@ -145,7 +147,7 @@ class Search extends React.Component {
               <Tab
                 className={classes.tabTitle}
                 label='Order on your own'
-                icon={<AddOrder />}
+                icon={<AddOrderIcon />}
               />
             </Tabs>
           </AppBar>
@@ -158,8 +160,8 @@ class Search extends React.Component {
                 <React.Fragment>
                   {value === 0 && <TabContainer><Ongoing data={data.activeClones} /></TabContainer>}
                   {value === 1 && <TabContainer><Past data={data.activeClones} /></TabContainer>}
-                  {value === 2 && <TabContainer><Past data={data.oldClones} /></TabContainer>}
-                  {value === 3 && <TabContainer><Past data={data.activeClones} /></TabContainer>}
+                  {value === 2 && <TabContainer><AddOrder data={data.oldClones} /></TabContainer>}
+                  {value === 3 && <TabContainer><Archived data={data.activeClones} /></TabContainer>}
                 </React.Fragment>
               );
             }}

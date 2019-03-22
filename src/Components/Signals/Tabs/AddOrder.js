@@ -5,10 +5,10 @@ import {
 import { ExpandMore } from '@material-ui/icons';
 
 import { withStyles } from '@material-ui/core/styles';
-import Answer from '../Signal/Answer';
+import Order from '../Signal/Order';
 import styles from '../styles';
 
-class Ongoing extends React.Component {
+class Archived extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,9 +49,7 @@ class Ongoing extends React.Component {
               <Grid container>
                 <Grid item xs={12}>
                   <Paper>
-                    { clone.signaledSignals.map((signal, j) => (
-                      <Answer key={`signal-${j}`} signal={signal} />
-                    ))}
+                    <Order clone={clone} />
                   </Paper>
                 </Grid>
               </Grid>
@@ -63,4 +61,4 @@ class Ongoing extends React.Component {
   }
 }
 
-export default withStyles(styles)(Ongoing);
+export default withStyles(styles)(Archived);
