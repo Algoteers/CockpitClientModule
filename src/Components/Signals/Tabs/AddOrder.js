@@ -35,7 +35,7 @@ class Archived extends React.Component {
           color='textPrimary'
           gutterBottom
         >
-          A list of ongoing signals
+          Add a manual order
         </Typography>
 
         { data.map((clone, i) => (
